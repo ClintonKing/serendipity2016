@@ -31,9 +31,7 @@ app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'))
 })
 
-//Messenger API endpoint
-curl -X POST -H "Content-Type: application/json" -d '{"setting_type":"call_to_actions","thread_state":"new_thread","call_to_actions":[{"payload":"USER_DEFINED_PAYLOAD"}]}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAAKfoECHuicBACDODZBdjr1mPSuDJDBLCZCx69BDaWItKqcK5ULGYSBzYQ535gHWkgj4W4G0zjWjoLvYrI2hlMpjZBK1Ft63j4GegXit1QjeOaUqFesmTb5HM1bekKIap8ZCiR4PAaHcl8DBisZCajsls4HfgvCD2YWzNzCDLhQZDZD"    
-
+//Messenger API endpoint  
 app.post('/webhook/', function (req, res) {
     let messaging_events = req.body.entry[0].messaging
     for (let i = 0; i < messaging_events.length; i++) {
