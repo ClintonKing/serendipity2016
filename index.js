@@ -38,13 +38,12 @@ app.post('/webhook/', function (req, res) {
         let event = req.body.entry[0].messaging[i]
         let sender = event.sender.id
         if (event.message && event.message.text) {
-            // getUserInfo(sender)
             let text = event.message.text
-            if (text === 'NPR'){
-              sendNPRCarousel(sender)
-              continue
-            }
-            sendTextMessage(sender, "I heard: " + text.substring(0, 200))
+            getUserInfo(sender, text)
+            // if (text === 'NPR'){
+            //   sendNPRCarousel(sender)
+            //   continue
+            // }
         }
     }
     res.sendStatus(200)
@@ -55,9 +54,9 @@ const token = "EAAKfoECHuicBACDODZBdjr1mPSuDJDBLCZCx69BDaWItKqcK5ULGYSBzYQ535gHW
 //Performs the actual sending of message
 function callSendAPI(messageData){
   request({
+    method: 'POST',
     uri: 'https://graph.facebook.com/v2.6/me/messages',
     qs: {access_token:token},
-    method: 'POST',
     json: messageData
   }, function (error, response, body){
     if (!error && response.statusCode == 200){
@@ -74,25 +73,19 @@ function callSendAPI(messageData){
 }
 
 //Get info about the user
-// function getUserInfo(sender){
-//   request({
-//     url: 'https://graph.facebook.com/v2.6/' + sender,
-//     qs: {access_token:token},
-//     method: 'GET',
-//     json: messageData
-//   }, function (error, response, body){
-//     if (!error && response.statusCode == 200){
-//       let recipientId = body.recipient_id
-//       let messageId = body.message_id
-//
-//       console.log("Successfully sent generic message with id %s to recipient %s", messageId, recipientId)
-//     } else {
-//       console.error("Unable to send message")
-//       console.error(response)
-//       console.error(error)
-//     }
-//   })
-// }
+function getUserInfo(sender){
+  request({
+    method: 'GET',
+    url: 'https://graph.facebook.com/v2.6/${sender}',
+    qs: this._getQs({fields: 'first_name,last_name,profile_pic,locale,timezone,gender'}),
+    json: true
+  }, function (error, response, body){
+      let firstName = body.first_name
+      let lastName = body.last_name
+      let profilePic = body.profile_pic
+      sendTextMessage(sender, "Hi " + firstName + " " + lastName + ", I heard: " + text.substring(0, 200))
+  })
+}
 
 //Send an echo message
 function sendTextMessage(recipient, text) {
@@ -107,6 +100,19 @@ function sendTextMessage(recipient, text) {
 
     callSendAPI(messageData)
 
+}
+
+function _getQs (qs) {
+  if (typeof qs === 'undefined') {
+    qs = {}
+  }
+  qs['access_token'] = token
+
+  if (this.debug) {
+    qs['debug'] = this.debug
+  }
+
+  return qs
 }
 
 function sendNPRCarousel(recipient){
