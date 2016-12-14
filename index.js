@@ -31,13 +31,14 @@ app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'))
 })
 
-//Messenger API endpoint  
+//Messenger API endpoint
 app.post('/webhook/', function (req, res) {
     let messaging_events = req.body.entry[0].messaging
     for (let i = 0; i < messaging_events.length; i++) {
         let event = req.body.entry[0].messaging[i]
         let sender = event.sender.id
         if (event.message && event.message.text) {
+            // getUserInfo(sender)
             let text = event.message.text
             if (text === 'NPR'){
               sendNPRCarousel(sender)
@@ -54,7 +55,7 @@ const token = "EAAKfoECHuicBACDODZBdjr1mPSuDJDBLCZCx69BDaWItKqcK5ULGYSBzYQ535gHW
 //Performs the actual sending of message
 function callSendAPI(messageData){
   request({
-    uri: 'https://graph.facebook.com/v2.6/me/messages',
+    url: 'https://graph.facebook.com/v2.6/me/messages',
     qs: {access_token:token},
     method: 'POST',
     json: messageData
@@ -71,6 +72,27 @@ function callSendAPI(messageData){
     }
   })
 }
+
+//Get info about the user
+// function getUserInfo(sender){
+//   request({
+//     url: 'https://graph.facebook.com/v2.6/' + sender,
+//     qs: {access_token:token},
+//     method: 'GET',
+//     json: messageData
+//   }, function (error, response, body){
+//     if (!error && response.statusCode == 200){
+//       let recipientId = body.recipient_id
+//       let messageId = body.message_id
+//
+//       console.log("Successfully sent generic message with id %s to recipient %s", messageId, recipientId)
+//     } else {
+//       console.error("Unable to send message")
+//       console.error(response)
+//       console.error(error)
+//     }
+//   })
+// }
 
 //Send an echo message
 function sendTextMessage(recipient, text) {
