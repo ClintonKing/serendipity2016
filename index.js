@@ -77,7 +77,7 @@ function getUserInfo(sender){
   request({
     method: 'GET',
     url: 'https://graph.facebook.com/v2.6/${sender}',
-    qs: this._getQs({fields: 'first_name,last_name,profile_pic,locale,timezone,gender'}),
+    qs: {fields: 'first_name,last_name,profile_pic,locale,timezone,gender', access_token: token},
     json: true
   }, function (error, response, body){
       let firstName = body.first_name
