@@ -38,7 +38,6 @@ app.post('/webhook/', function (req, res) {
         let event = req.body.entry[0].messaging[i]
         let sender = event.sender.id
         if (event.message && event.message.text) {
-            // getUserInfo(sender)
             let text = event.message.text
             if (text === 'NPR'){
               sendNPRCarousel(sender)
@@ -63,7 +62,6 @@ function callSendAPI(messageData){
     if (!error && response.statusCode == 200){
       let recipientId = body.recipient_id
       let messageId = body.message_id
-
       console.log("Successfully sent generic message with id %s to recipient %s", messageId, recipientId)
     } else {
       console.error("Unable to send message")
@@ -73,26 +71,6 @@ function callSendAPI(messageData){
   })
 }
 
-//Get info about the user
-// function getUserInfo(sender){
-//   request({
-//     url: 'https://graph.facebook.com/v2.6/' + sender,
-//     qs: {access_token:token},
-//     method: 'GET',
-//     json: messageData
-//   }, function (error, response, body){
-//     if (!error && response.statusCode == 200){
-//       let recipientId = body.recipient_id
-//       let messageId = body.message_id
-//
-//       console.log("Successfully sent generic message with id %s to recipient %s", messageId, recipientId)
-//     } else {
-//       console.error("Unable to send message")
-//       console.error(response)
-//       console.error(error)
-//     }
-//   })
-// }
 
 //Send an echo message
 function sendTextMessage(recipient, text) {
