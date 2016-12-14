@@ -32,6 +32,8 @@ app.listen(app.get('port'), function() {
 })
 
 //Messenger API endpoint
+curl -X POST -H "Content-Type: application/json" -d '{"setting_type":"call_to_actions","thread_state":"new_thread","call_to_actions":[{"payload":"USER_DEFINED_PAYLOAD"}]}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAAKfoECHuicBACDODZBdjr1mPSuDJDBLCZCx69BDaWItKqcK5ULGYSBzYQ535gHWkgj4W4G0zjWjoLvYrI2hlMpjZBK1Ft63j4GegXit1QjeOaUqFesmTb5HM1bekKIap8ZCiR4PAaHcl8DBisZCajsls4HfgvCD2YWzNzCDLhQZDZD"    
+
 app.post('/webhook/', function (req, res) {
     let messaging_events = req.body.entry[0].messaging
     for (let i = 0; i < messaging_events.length; i++) {
@@ -41,18 +43,6 @@ app.post('/webhook/', function (req, res) {
             let text = event.message.text
             if (text === 'NPR'){
               sendNPRCarousel(sender)
-              continue
-            } else if (text === "space"){
-              sendSpaceCarousel(sender)
-              continue
-            } else if (text === "cute"){
-              sendCuteCarousel(sender)
-              continue
-            } else if (text === "trump"){
-              sendElectionCarousel(sender)
-              continue
-            } else if (text === "hillary clinton"){
-              sendElectionCarousel(sender)
               continue
             }
             sendTextMessage(sender, "I heard: " + text.substring(0, 200))
@@ -138,93 +128,6 @@ function sendNPRCarousel(recipient){
               type: "web_url",
               url: "http://npr.org",
               title: " Yet MORE NPR"
-            }]
-          }]
-        }
-      }
-    }
-  }
-
-  callSendAPI(messageData);
-}
-
-function sendSpaceCarousel(recipient){
-  var messageData = {
-    recipient: {
-      id: recipient
-    },
-    message: {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "generic",
-          elements: [{
-            title: "Mars Lander May Have Exploded",
-            subtitle: "Crazy, right?",
-            item_url: "http://www.npr.org/sections/thetwo-way/2016/10/21/498861588/schiaparelli-mars-lander-seems-to-have-crashed-on-impact-european-agency-says",
-            image_url: "http://i.imgur.com/gIHN8V5.png",
-            buttons: [{
-              type: "web_url",
-              url: "http://www.npr.org/sections/thetwo-way/2016/10/21/498861588/schiaparelli-mars-lander-seems-to-have-crashed-on-impact-european-agency-says",
-              title: "Read More"
-            }]
-          }]
-        }
-      }
-    }
-  }
-
-  callSendAPI(messageData);
-}
-
-function sendCuteCarousel(recipient){
-  var messageData = {
-    recipient: {
-      id: recipient
-    },
-    message: {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "generic",
-          elements: [{
-            title: "2016 Comedy Wildlife Photo Finalists",
-            subtitle: "So cute!",
-            item_url: "http://www.npr.org/sections/thetwo-way/2016/10/21/498598369/photos-finalists-for-the-2016-comedy-wildlife-photography-awards",
-            image_url: "http://i.imgur.com/MlbszHP.png",
-            buttons: [{
-              type: "web_url",
-              url: "http://www.npr.org/sections/thetwo-way/2016/10/21/498598369/photos-finalists-for-the-2016-comedy-wildlife-photography-awards",
-              title: "Read More"
-            }]
-          }]
-        }
-      }
-    }
-  }
-
-  callSendAPI(messageData);
-}
-
-function sendElectionCarousel(recipient){
-  var messageData = {
-    recipient: {
-      id: recipient
-    },
-    message: {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "generic",
-          elements: [{
-            title: "Trump Turns Roast Into Fire",
-            subtitle: "This guy...",
-            item_url: "http://www.npr.org/2016/10/21/498804666/clinton-trump-trade-barbs-at-al-smith-dinner",
-            image_url: "http://i.imgur.com/RDoOPrN.png",
-            buttons: [{
-              type: "web_url",
-              url: "http://www.npr.org/2016/10/21/498804666/clinton-trump-trade-barbs-at-al-smith-dinner",
-              title: "Read More"
             }]
           }]
         }
