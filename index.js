@@ -74,7 +74,7 @@ function callSendAPI(messageData){
   })
 }
 
-function getStory(messageData){
+function getStory(){
   request({
     uri: 'http://api.npr.org/query?id=505630205&output=json&apiKey=MDI5MTA5MjQ3MDE0ODE4MTkxMTIwZTgyYQ000',
     method: 'GET',
@@ -82,7 +82,7 @@ function getStory(messageData){
     if(error){
       console.log("SOMETHING BROKE HERE")
     } else{
-    console.log("STORY GOT: " + body)
+    console.log("STORYLINK :" + body.list.story[0].link[0].$text)
     }
   })
 }
