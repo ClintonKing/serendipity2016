@@ -77,6 +77,28 @@ function callSendAPI(messageData){
   })
 }
 
+//Performs the actual sending of message
+function setThreadSettings(){
+  request({
+    uri: 'https://graph.facebook.com/v2.6/me/thread_settings',
+    qs: {access_token:token},
+    method: 'POST',
+    json: {
+      setting_type:"call_to_actions",
+      thread_state:"new_thread",
+      call_to_actions:[
+        {
+        payload:"new users"
+        }
+      ]
+    }
+  }, function (error, response, body){
+
+  })
+}
+
+setThreadSettings()
+
 function sendStory(recipient){
   var rando = numbers[Math.floor(Math.random() * numbers.length)]
   request({
