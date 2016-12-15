@@ -132,7 +132,7 @@ function sendStory(recipient){
       output:"json",
       numResults:25,
       apiKey:nprKey
-    }
+    },
     method: 'GET',
   }, function (error, response, body){
     if(error){
