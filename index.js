@@ -57,9 +57,9 @@ const nprKey = "MDI5MTA5MjQ3MDE0ODE4MTU1NTM5ZWNkMQ000"
 //Performs the actual sending of message
 function callSendAPI(messageData){
   request({
+    method: 'POST',
     uri: 'https://graph.facebook.com/v2.6/me/messages',
     qs: {access_token:token},
-    method: 'POST',
     json: messageData
   }, function (error, response, body){
     if (!error && response.statusCode == 200){
@@ -84,7 +84,6 @@ function getStory(messageData){
   })
 }
 
-
 //Send an echo message
 function sendTextMessage(recipient, text) {
     let messageData = {
@@ -98,6 +97,19 @@ function sendTextMessage(recipient, text) {
 
     callSendAPI(messageData)
 
+}
+
+function _getQs (qs) {
+  if (typeof qs === 'undefined') {
+    qs = {}
+  }
+  qs['access_token'] = token
+
+  if (this.debug) {
+    qs['debug'] = this.debug
+  }
+
+  return qs
 }
 
 function sendNPRCarousel(recipient){
