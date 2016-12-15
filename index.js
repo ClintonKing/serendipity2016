@@ -111,7 +111,14 @@ function sendStory(recipient){
               }]
             }]
           }
+        },
+        quick_replies:[
+        {
+          content_type:"text",
+          title:"Send me a new story.",
+          payload:"story me"
         }
+        ]
       }
     }
 
