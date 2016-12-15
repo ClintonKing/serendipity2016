@@ -83,7 +83,7 @@ function getStory(){
       console.log("SOMETHING BROKE HERE")
     } else{
     let myJson = JSON.parse(body)
-    console.log("STORYLINK :" + myJson)
+    console.log("STORYLINK :" + myJson.version)
     }
   })
 }
