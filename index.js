@@ -76,14 +76,14 @@ function callSendAPI(messageData){
 
 function getStory(messageData){
   request({
-    uri: 'http://api.npr.org/query',
-    qs: {id:505630205,output:json,apiKey:nprKey},
+    uri: 'http://api.npr.org/query?id=505630205&output=json&apiKey=MDI5MTA5MjQ3MDE0ODE4MTU1NTM5ZWNkMQ000',
     method: 'GET',
   }, function (error, response, body){
     if(error){
       console.log("SOMETHING BROKE HERE")
-    }
+    } else{
     console.log("STORY GOT: " + body)
+    }
   })
 }
 
