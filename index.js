@@ -44,6 +44,9 @@ app.post('/webhook/', function (req, res) {
             if (payload === 'story me'){
               sendStory(sender)
               continue
+            } else if (payload === 'new user'){
+              getStarted(sender)
+              continue
             }
           }
           let text = event.message.text
@@ -88,7 +91,7 @@ function setThreadSettings(){
       thread_state:"new_thread",
       call_to_actions:[
         {
-        payload:"new users"
+        payload:"new user"
         }
       ]
     }
@@ -96,8 +99,26 @@ function setThreadSettings(){
 
   })
 }
-
 setThreadSettings()
+
+function getStarted(recipient){
+  let messageData = {
+    recipient: {
+      id: recipient
+    },
+    message: {
+      text: "Hi there! Let me know if you'd like to read a new story from NPR.org",
+      quick_replies:[
+      {
+        content_type:"text",
+        title:"Send me a new story.",
+        payload:"story me"
+      }
+      ]
+    }
+  }
+  callSendAPI(messageData)
+}
 
 function sendStory(recipient){
   var rando = numbers[Math.floor(Math.random() * numbers.length)]
