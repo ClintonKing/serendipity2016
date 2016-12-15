@@ -4,6 +4,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
+const numbers = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -77,17 +78,18 @@ function callSendAPI(messageData){
 }
 
 function sendStory(recipient){
+  var rando = numbers[Math.floor(Math.random() * numbers.length)]
   request({
-    uri: 'http://api.npr.org/query?output=json&numResults=2&apiKey=MDI5MTA5MjQ3MDE0ODE4MTkxMTIwZTgyYQ000',
+    uri: 'http://api.npr.org/query?output=json&numResults=25&apiKey=MDI5MTA5MjQ3MDE0ODE4MTkxMTIwZTgyYQ000',
     method: 'GET',
   }, function (error, response, body){
     if(error){
       console.log("SOMETHING BROKE HERE")
     } else{
     let thisStory = JSON.parse(body)
-    let storyLink = thisStory.list.story[1].link[0].$text
-    let storyTitle = thisStory.list.story[1].title.$text
-    let storyTeaser = thisStory.list.story[1].teaser.$text
+    let storyLink = thisStory.list.story[rando].link[0].$text
+    let storyTitle = thisStory.list.story[rando].title.$text
+    let storyTeaser = thisStory.list.story[rando].teaser.$text
 
     let messageData = {
       recipient: {
