@@ -44,13 +44,17 @@ app.post('/webhook/', function (req, res) {
             if (payload === 'story me'){
               sendStory(sender)
               continue
-            } else if (payload === 'new user'){
-              getStarted(sender)
-              continue
             }
           }
           let text = event.message.text
           sendTextMessage(sender)
+        }
+        if (event.postback && event.postback.payload){
+          let payload = event.postback.payload
+          if (payload === 'new user'){
+            getStarted(sender)
+            continue
+          }
         }
     }
     res.sendStatus(200)
@@ -91,7 +95,7 @@ function setThreadSettings(){
       thread_state:"new_thread",
       call_to_actions:[
         {
-        payload:"new user"
+          payload:"new user"
         }
       ]
     }
