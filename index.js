@@ -215,6 +215,6 @@ function getUserInfo(userId){
     method: 'GET',
   }, function (error, response, body){
       let userInfo = JSON.parse(body)
-      firstName = userInfo.first_name
+      console.log('USER FIRST NAME: ' + userInfo.first_name)
   })
 }
