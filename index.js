@@ -124,6 +124,7 @@ function getStarted(recipient){
       ]
     }
   }
+  console.log('NAME AT GETSTARTED: ' + firstName)
   callSendAPI(messageData)
 }
 
@@ -215,6 +216,7 @@ function getUserInfo(userId){
     method: 'GET',
   }, function (error, response, body){
       let userInfo = JSON.parse(body)
-      console.log('USER FIRST NAME: ' + userInfo.first_name)
+      firstName = userInfo.first_name
+      console.log('NAME AT GETINFO: ' + firstName)
   })
 }
