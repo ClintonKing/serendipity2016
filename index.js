@@ -39,10 +39,11 @@ app.post('/webhook/', function (req, res) {
         let sender = event.sender.id
         if (event.message && event.message.text) {
             let text = event.message.text
-            getStory()
             if (text === 'NPR'){
               sendNPRCarousel(sender)
               continue
+            } else if (text === 'story me'){
+              sendStory(sender)
             }
             sendTextMessage(sender, "I heard: " + text.substring(0, 200))
         }
@@ -74,7 +75,7 @@ function callSendAPI(messageData){
   })
 }
 
-function getStory(){
+function sendStory(recipient){
   request({
     uri: 'http://api.npr.org/query?id=505630205&output=json&apiKey=MDI5MTA5MjQ3MDE0ODE4MTkxMTIwZTgyYQ000',
     method: 'GET',
@@ -83,7 +84,36 @@ function getStory(){
       console.log("SOMETHING BROKE HERE")
     } else{
     let thisStory = JSON.parse(body)
-    console.log("STORYLINK :" + thisStory.list.link[0].$text)
+    let storyLink = thisStory.list.story.link[0].$text
+    let storyTitle = thisStory.list.story.title.$text
+    let storyTeaser = thisStory.list.story.teaser.$text
+
+    var messageData = {
+      recipient: {
+        id: recipient
+      },
+      message: {
+        attachment: {
+          type: "template",
+          payload: {
+            template_type: "generic",
+            elements: [{
+              title: storyTitle,
+              subtitle: storyTeaser,
+              item_url: storyLink,
+              buttons: [{
+                type: "web_url",
+                url: storyLink,
+                title: "Read More"
+              }]
+            }]
+          }
+        }
+      }
+    }
+
+    callSendAPI(messageData)
+
     }
   })
 }
