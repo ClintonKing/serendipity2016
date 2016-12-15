@@ -78,7 +78,7 @@ function callSendAPI(messageData){
 
 function sendStory(recipient){
   request({
-    uri: 'http://api.npr.org/query?output=json&numResults=1&apiKey=MDI5MTA5MjQ3MDE0ODE4MTkxMTIwZTgyYQ000',
+    uri: 'http://api.npr.org/query?output=json&numResults=2&apiKey=MDI5MTA5MjQ3MDE0ODE4MTkxMTIwZTgyYQ000',
     method: 'GET',
   }, function (error, response, body){
     if(error){
