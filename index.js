@@ -39,13 +39,15 @@ app.post('/webhook/', function (req, res) {
         let event = req.body.entry[0].messaging[i]
         let sender = event.sender.id
         if (event.message && event.message.text) {
-            let text = event.message.text
+          if (event.message.quick_reply.payload){
             let payload = event.message.quick_reply.payload
             if (payload === 'story me'){
               sendStory(sender)
               continue
             }
-            sendTextMessage(sender)
+          }
+          let text = event.message.text
+          sendTextMessage(sender)
         }
     }
     res.sendStatus(200)
