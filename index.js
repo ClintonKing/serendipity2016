@@ -42,8 +42,9 @@ app.post('/webhook/', function (req, res) {
             if (text === 'NPR'){
               sendNPRCarousel(sender)
               continue
-            } else if (text === 'story me'){
+            } else if (text === 'Story me'){
               sendStory(sender)
+              continue
             }
             sendTextMessage(sender, "I heard: " + text.substring(0, 200))
         }
@@ -88,7 +89,7 @@ function sendStory(recipient){
     let storyTitle = thisStory.list.story.title.$text
     let storyTeaser = thisStory.list.story.teaser.$text
 
-    var messageData = {
+    let messageData = {
       recipient: {
         id: recipient
       },
