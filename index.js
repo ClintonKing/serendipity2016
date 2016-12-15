@@ -39,7 +39,7 @@ app.post('/webhook/', function (req, res) {
         let event = req.body.entry[0].messaging[i]
         let sender = event.sender.id
         if (event.message && event.message.text) {
-          if (event.message.quick_reply.payload){
+          if (event.message.quick_reply){
             let payload = event.message.quick_reply.payload
             if (payload === 'story me'){
               sendStory(sender)
