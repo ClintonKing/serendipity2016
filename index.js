@@ -40,14 +40,12 @@ app.post('/webhook/', function (req, res) {
         let sender = event.sender.id
         if (event.message && event.message.text) {
             let text = event.message.text
-            if (text === 'NPR'){
-              sendNPRCarousel(sender)
-              continue
-            } else if (text === 'Story me'){
+            let payload = event.message.quick_reply.payload
+            if (payload === 'story me'){
               sendStory(sender)
               continue
             }
-            sendTextMessage(sender, "I heard: " + text.substring(0, 200))
+            sendTextMessage(sender)
         }
     }
     res.sendStatus(200)
@@ -122,66 +120,23 @@ function sendStory(recipient){
 }
 
 //Send an echo message
-function sendTextMessage(recipient, text) {
+function sendTextMessage(recipient) {
     let messageData = {
       recipient: {
         id: recipient
       },
       message: {
-        text: text
+        text: "Sorry, please use the buttons to respond"
+        quick_replies:[
+        {
+          content_type:"text",
+          title:"Send me a new story.",
+          payload:"story me"
+        }
+        ]
       }
     }
 
     callSendAPI(messageData)
 
-}
-
-
-function sendNPRCarousel(recipient){
-  var messageData = {
-    recipient: {
-      id: recipient
-    },
-    message: {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "generic",
-          elements: [{
-            title: "NPR Home",
-            subtitle: "Where news is at",
-            item_url: "http://npr.org",
-            image_url: "http://i.imgur.com/DMgmYeQ.jpg",
-            buttons: [{
-              type: "web_url",
-              url: "http://npr.org",
-              title: "Go to NPR"
-            }]
-          },{
-            title: "Get More NPR",
-            subtitle: "Where news is at",
-            item_url: "http://npr.org",
-            image_url: "http://i.imgur.com/DMgmYeQ.jpg",
-            buttons: [{
-              type: "web_url",
-              url: "http://npr.org",
-              title: "More NPR"
-            }]
-          }, {
-            title: "Not enough?",
-            subtitle: "Where news is at",
-            item_url: "http://npr.org",
-            image_url: "http://i.imgur.com/DMgmYeQ.jpg",
-            buttons: [{
-              type: "web_url",
-              url: "http://npr.org",
-              title: " Yet MORE NPR"
-            }]
-          }]
-        }
-      }
-    }
-  }
-
-  callSendAPI(messageData);
 }
