@@ -82,7 +82,7 @@ function getStory(){
     if(error){
       console.log("SOMETHING BROKE HERE")
     } else{
-    myJson = JSON.parse(body)
+    let myJson = JSON.parse(body)
     console.log("STORYLINK :" + myJson)
     }
   })
