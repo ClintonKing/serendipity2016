@@ -50,7 +50,7 @@ app.post('/webhook/', function (req, res) {
     res.sendStatus(200)
 })
 
-const token = "EAAKfoECHuicBACDODZBdjr1mPSuDJDBLCZCx69BDaWItKqcK5ULGYSBzYQ535gHWkgj4W4G0zjWjoLvYrI2hlMpjZBK1Ft63j4GegXit1QjeOaUqFesmTb5HM1bekKIap8ZCiR4PAaHcl8DBisZCajsls4HfgvCD2YWzNzCDLhQZDZD"
+const token = "EAAKfoECHuicBANGrXz02ZAffyw3t7p92w1ZBCGp3ZAx5HsEKNS2wYHZCtXd8NGZCPctvQAr6qbMiRE2C0xGk0WmY0vy7omao1NITRF5rgIz3Rd46UGKnG2DegmVjj0rMUpKvPrIdavMdRl0Yke7SC2lfAw0EYZCihnU34eZAjucawZDZD"
 
 const nprKey = "MDI5MTA5MjQ3MDE0ODE4MTU1NTM5ZWNkMQ000"
 
