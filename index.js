@@ -126,7 +126,7 @@ function sendTextMessage(recipient) {
         id: recipient
       },
       message: {
-        text: "Sorry, please use the buttons to respond"
+        text: "Sorry, please use the buttons to respond",
         quick_replies:[
         {
           content_type:"text",
