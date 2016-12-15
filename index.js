@@ -39,7 +39,7 @@ app.post('/webhook/', function (req, res) {
         let sender = event.sender.id
         if (event.message && event.message.text) {
             let text = event.message.text
-            getStory()
+            // getStory()
             if (text === 'NPR'){
               sendNPRCarousel(sender)
               continue
@@ -99,18 +99,6 @@ function sendTextMessage(recipient, text) {
 
 }
 
-function _getQs (qs) {
-  if (typeof qs === 'undefined') {
-    qs = {}
-  }
-  qs['access_token'] = token
-
-  if (this.debug) {
-    qs['debug'] = this.debug
-  }
-
-  return qs
-}
 
 function sendNPRCarousel(recipient){
   var messageData = {
