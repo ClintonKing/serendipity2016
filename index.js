@@ -51,6 +51,8 @@ app.post('/webhook/', function (req, res) {
 
 const token = "EAAKfoECHuicBACDODZBdjr1mPSuDJDBLCZCx69BDaWItKqcK5ULGYSBzYQ535gHWkgj4W4G0zjWjoLvYrI2hlMpjZBK1Ft63j4GegXit1QjeOaUqFesmTb5HM1bekKIap8ZCiR4PAaHcl8DBisZCajsls4HfgvCD2YWzNzCDLhQZDZD"
 
+const nprKey = "MDI5MTA5MjQ3MDE0ODE4MTU1NTM5ZWNkMQ000"
+
 //Performs the actual sending of message
 function callSendAPI(messageData){
   request({
@@ -68,6 +70,16 @@ function callSendAPI(messageData){
       console.error(response)
       console.error(error)
     }
+  })
+}
+
+function getStory(messageData){
+  request({
+    uri: 'http://api.npr.org/query',
+    qs: {id:505630205;output:json;apiKey:nprKey},
+    method: 'GET',
+  }, function (error, response, body){
+    console.log(body)
   })
 }
 
