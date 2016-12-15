@@ -6,6 +6,8 @@ const request = require('request')
 const app = express()
 const numbers = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
 
+let firstName = null;
+
 app.set('port', (process.env.PORT || 5000))
 
 // Process application/x-www-form-urlencoded
@@ -36,6 +38,7 @@ app.listen(app.get('port'), function() {
 app.post('/webhook/', function (req, res) {
     let messaging_events = req.body.entry[0].messaging
     for (let i = 0; i < messaging_events.length; i++) {
+        getUserInfo()
         let event = req.body.entry[0].messaging[i]
         let sender = event.sender.id
         if (event.message && event.message.text) {
@@ -111,7 +114,7 @@ function getStarted(recipient){
       id: recipient
     },
     message: {
-      text: "Hi there! Let me know if you'd like to read a new story from NPR.org",
+      text: "Hi, " + firstName + "! Let me know if you'd like to read a new story from NPR.org",
       quick_replies:[
       {
         content_type:"text",
@@ -202,16 +205,16 @@ function sendTextMessage(recipient) {
 
 }
 
-// function getUserInfo(userId){
-//   request({
-//     uri: 'http://api.npr.org/query?output=json&numResults=25&apiKey=MDI5MTA5MjQ3MDE0ODE4MTkxMTIwZTgyYQ000',
-//     qs:{
-//       output:"json",
-//       numResults:25,
-//       apiKey:nprKey
-//     },
-//     method: 'GET',
-//   }, function (error, response, body){
-//
-//   })
-// }
+function getUserInfo(userId){
+  request({
+    uri: 'https://graph.facebook.com/v2.6/' + userId,
+    qs:{
+      fields:"first_name",
+      access_token:token
+    },
+    method: 'GET',
+  }, function (error, response, body){
+      let userInfo = JSON.parse(body)
+      firstName = userInfo.first_name
+  })
+}
