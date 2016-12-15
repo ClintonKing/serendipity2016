@@ -82,7 +82,7 @@ function getStory(){
     if(error){
       console.log("SOMETHING BROKE HERE")
     } else{
-    console.log("STORYLINK :" + body.list.story[0].link[0].$text)
+    console.log("STORYLINK :" + body.version)
     }
   })
 }
