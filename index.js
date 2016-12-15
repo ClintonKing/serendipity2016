@@ -127,7 +127,7 @@ function getStarted(recipient){
 function sendStory(recipient){
   var rando = numbers[Math.floor(Math.random() * numbers.length)]
   request({
-    uri: 'http://api.npr.org/query?output=json&numResults=25&apiKey=MDI5MTA5MjQ3MDE0ODE4MTkxMTIwZTgyYQ000',
+    uri: 'http://api.npr.org/query',
     qs:{
       output:"json",
       numResults:25,
@@ -201,3 +201,17 @@ function sendTextMessage(recipient) {
     callSendAPI(messageData)
 
 }
+
+// function getUserInfo(userId){
+//   request({
+//     uri: 'http://api.npr.org/query?output=json&numResults=25&apiKey=MDI5MTA5MjQ3MDE0ODE4MTkxMTIwZTgyYQ000',
+//     qs:{
+//       output:"json",
+//       numResults:25,
+//       apiKey:nprKey
+//     },
+//     method: 'GET',
+//   }, function (error, response, body){
+//
+//   })
+// }
