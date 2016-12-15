@@ -39,6 +39,7 @@ app.post('/webhook/', function (req, res) {
         let sender = event.sender.id
         if (event.message && event.message.text) {
             let text = event.message.text
+            getStory()
             if (text === 'NPR'){
               sendNPRCarousel(sender)
               continue
