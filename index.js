@@ -62,7 +62,7 @@ app.post('/webhook/', function (req, res) {
 
 const token = "EAAKfoECHuicBANGrXz02ZAffyw3t7p92w1ZBCGp3ZAx5HsEKNS2wYHZCtXd8NGZCPctvQAr6qbMiRE2C0xGk0WmY0vy7omao1NITRF5rgIz3Rd46UGKnG2DegmVjj0rMUpKvPrIdavMdRl0Yke7SC2lfAw0EYZCihnU34eZAjucawZDZD"
 
-const nprKey = "MDI5MTA5MjQ3MDE0ODE4MTU1NTM5ZWNkMQ000"
+const nprKey = "MDI5MTA5MjQ3MDE0ODE4MTkxMTIwZTgyYQ000"
 
 //Performs the actual sending of message
 function callSendAPI(messageData){
@@ -128,6 +128,11 @@ function sendStory(recipient){
   var rando = numbers[Math.floor(Math.random() * numbers.length)]
   request({
     uri: 'http://api.npr.org/query?output=json&numResults=25&apiKey=MDI5MTA5MjQ3MDE0ODE4MTkxMTIwZTgyYQ000',
+    qs:{
+      output:"json",
+      numResults:25,
+      apiKey:nprKey
+    }
     method: 'GET',
   }, function (error, response, body){
     if(error){
