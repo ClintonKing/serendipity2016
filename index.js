@@ -85,9 +85,9 @@ function sendStory(recipient){
       console.log("SOMETHING BROKE HERE")
     } else{
     let thisStory = JSON.parse(body)
-    let storyLink = thisStory.list.story.link[0].$text
-    let storyTitle = thisStory.list.story.title.$text
-    let storyTeaser = thisStory.list.story.teaser.$text
+    let storyLink = thisStory.list.story[0].link[0].$text
+    let storyTitle = thisStory.list.story[0].title.$text
+    let storyTeaser = thisStory.list.story[0].teaser.$text
 
     let messageData = {
       recipient: {
