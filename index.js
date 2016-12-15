@@ -74,15 +74,15 @@ function callSendAPI(messageData){
   })
 }
 
-function getStory(messageData){
-  request({
-    uri: 'http://api.npr.org/query',
-    qs: {id:505630205;output:json;apiKey:nprKey},
-    method: 'GET',
-  }, function (error, response, body){
-    console.log(body)
-  })
-}
+// function getStory(messageData){
+//   request({
+//     uri: 'http://api.npr.org/query',
+//     qs: {id:505630205;output:json;apiKey:nprKey},
+//     method: 'GET',
+//   }, function (error, response, body){
+//     console.log(body)
+//   })
+// }
 
 //Send an echo message
 function sendTextMessage(recipient, text) {
